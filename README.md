@@ -98,6 +98,7 @@ To aid in compiling your **Minimum Evaluation Suite (Section 11)**, you can perf
 ---
 
 ## 👩‍💻 Student Project Contributions Guide (Course Section 8)
-* **Student 1 (Tools Engineer):** Built the typed tool schemas, input validation algorithms, delivery-zone checking, and structured JSON storage engines in `server.ts`.
-* **Student 2 (Agent Engineer):** Engineered the agent execution loop, system prompt guidelines, routing logic, and fallback procedures for unsupported tasks.
-* **Student 3 (Platform & Interface):** Designed the React + Tailwind user interface, trace-logging panel, Dockerfile packaging, named volume setup, and health check validation.
+* **Mohammad Rayed (Tools & Agent Engineer):**
+  * **Tools Engineer:** Built the typed tool schemas, input validation algorithms, delivery-zone checking, and structured JSON storage engines in `server.ts`.
+  * **Agent Engineer:** Engineered the agent execution loop, system prompt guidelines, routing logic, and fallback procedures for unsupported tasks.
+* **Asmaa Hajj Chehade (Platform & Interface):** Designed the React + Tailwind user interface, trace-logging panel, Dockerfile packaging, named volume setup, and health check validation.
