@@ -1,0 +1,6 @@
+{
+  "name": "Manakish Bakery AI Assistant",
+  "description": "An interactive Customer Support and Order Management AI Assistant for a Manakish Bakery, complete with menu explorer, order tracker, price analyzer, and intelligent chat agent.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
