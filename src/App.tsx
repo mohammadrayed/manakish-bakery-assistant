@@ -33,7 +33,7 @@ export default function App() {
       role: "model",
       parts: [
         {
-          text: "Marhaba! 🥖 Warm greetings and welcome to the Manakish Bakery, run by Asmaa Hajj Chehade and Mohammad! \n\nI am your AI Bakery Assistant. I can show you our menu, validate your delivery area, estimate prices, and help you place, update, or cancel orders directly through this chat.\n\nWhat fresh, hot Manakish are we baking for you today?",
+          text: "Marhaba! 🥖 Warm greetings and welcome to the Manakish Bakery, run by Asmaa Hajj Chehade and Mohammad Rayed! \n\nI am your AI Bakery Assistant. I can show you our menu, validate your delivery area, estimate prices, and help you place, update, or cancel orders directly through this chat.\n\nWhat fresh, hot Manakish are we baking for you today?",
         },
       ],
     },
@@ -253,7 +253,7 @@ export default function App() {
               Manakish Bakery Assistant
             </h1>
             <p className="text-[10px] sm:text-xs font-medium text-white/90">
-              Powered by LangGraph Agent • Built by <span className="underline">Asmaa Hajj Chehade</span> &amp; Mohammad
+              Powered by LangGraph Agent • Built by <span className="underline">Asmaa Hajj Chehade</span> &amp; <span className="underline">Mohammad Rayed</span>
             </p>
           </div>
         </div>
@@ -434,7 +434,7 @@ export default function App() {
                 🧮 Estimate Order Price
               </button>
               <button
-                onClick={() => handleQuickTap("Place a pickup order for Mohammad for 1 Cheese Manousheh with Harissa and 1 Ayran yogurt drink")}
+                onClick={() => handleQuickTap("Place a pickup order for Mohammad Rayed for 1 Cheese Manousheh with Harissa and 1 Ayran yogurt drink")}
                 disabled={isTyping}
                 type="button"
                 className="text-xs bg-brand-soft-yellow hover:bg-brand-yellow text-brand-dark-brown transition px-3 py-1 rounded-full border border-brand-yellow/30 font-medium cursor-pointer"
@@ -871,7 +871,7 @@ export default function App() {
                       type="text"
                       value={checkAreaQuery}
                       onChange={(e) => setCheckAreaQuery(e.target.value)}
-                      placeholder="Enter neighborhood (e.g. Downtown, Eastside)..."
+                      placeholder="Enter neighborhood (e.g. Hamra, Achrafieh)..."
                       className="flex-1 bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-brown text-slate-800"
                     />
                     <button
@@ -983,7 +983,7 @@ export default function App() {
             </div>
           </div>
           <div className="text-slate-500 text-[10px] uppercase font-mono tracking-wider">
-            Asmaa &amp; Mohammad • Environment: Dockerized LangGraph-v1.2
+            Asmaa &amp; Mohammad Rayed • Environment: Dockerized LangGraph-v1.2
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-6 border-t border-slate-900/60 mt-4 pt-4 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-600 gap-2">

@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
+import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
 import { createServer as createViteServer } from "vite";
 
@@ -144,11 +145,41 @@ interface DeliveryZone {
 }
 
 const deliveryZones: DeliveryZone[] = [
-  { area: "Downtown", time: "20-30 mins", fee: 2.00 },
-  { area: "Westside", time: "30-45 mins", fee: 3.50 },
-  { area: "Northside", time: "35-50 mins", fee: 4.00 },
-  { area: "Eastside", time: "25-35 mins", fee: 3.00 },
-  { area: "Southside", time: "30-40 mins", fee: 3.00 }
+  // Official Administrative Quarters
+  { area: "Achrafieh", time: "20-30 mins", fee: 2.50 },
+  { area: "Ras Beirut", time: "25-35 mins", fee: 3.00 },
+  { area: "Mazraa", time: "25-35 mins", fee: 2.50 },
+  { area: "Mousaitbeh", time: "25-35 mins", fee: 2.50 },
+  { area: "Marfaa", time: "15-25 mins", fee: 2.00 },
+  { area: "Beirut Central District", time: "15-25 mins", fee: 2.00 },
+  { area: "Downtown", time: "15-25 mins", fee: 2.00 },
+  { area: "Saifi", time: "15-25 mins", fee: 2.00 },
+  { area: "Rmeil", time: "20-30 mins", fee: 2.50 },
+  { area: "Medawar", time: "20-30 mins", fee: 2.50 },
+  { area: "Zuqaq al-Blat", time: "20-30 mins", fee: 2.00 },
+  { area: "Bachoura", time: "20-30 mins", fee: 2.00 },
+  { area: "Dar El-Mreisseh", time: "20-30 mins", fee: 2.50 },
+  { area: "Minet El-Hosn", time: "15-25 mins", fee: 2.00 },
+
+  // Prominent Neighborhoods & Commercial Areas
+  { area: "Hamra", time: "20-30 mins", fee: 2.50 },
+  { area: "Mar Mikhael", time: "20-30 mins", fee: 2.50 },
+  { area: "Gemmayzeh", time: "15-25 mins", fee: 2.00 },
+  { area: "Badaro", time: "25-35 mins", fee: 3.00 },
+  { area: "Verdun", time: "25-35 mins", fee: 3.00 },
+  { area: "Raouché", time: "30-40 mins", fee: 3.50 },
+  { area: "Karantina", time: "25-35 mins", fee: 3.50 },
+  { area: "Basta", time: "20-30 mins", fee: 2.00 },
+  { area: "Sodeco", time: "20-30 mins", fee: 2.50 },
+  { area: "Sioufi", time: "25-35 mins", fee: 3.00 },
+  { area: "Geitawi", time: "25-35 mins", fee: 3.00 },
+
+  // Immediate Suburbs (Greater Beirut Area)
+  { area: "Bourj Hammoud", time: "30-40 mins", fee: 4.00 },
+  { area: "Sin El Fil", time: "30-45 mins", fee: 4.00 },
+  { area: "Chyah", time: "35-50 mins", fee: 4.50 },
+  { area: "Haret Hreik", time: "35-50 mins", fee: 4.50 },
+  { area: "Hazmieh", time: "35-50 mins", fee: 5.00 }
 ];
 
 interface OrderItem {
@@ -174,9 +205,14 @@ interface Order {
   estimatedTime: string;
 }
 
-// Global Order State
-let lastOrderId = 1002;
-let orders: Order[] = [
+// Global Order State with Persistent JSON Database File (Durable Data Layer)
+const DATA_DIR = path.join(process.cwd(), "data");
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+const DB_FILE = path.join(DATA_DIR, "orders-db.json");
+
+const defaultOrders: Order[] = [
   {
     id: "BAKE-1001",
     customerName: "Asmaa Hajj Chehade",
@@ -234,6 +270,45 @@ let orders: Order[] = [
     estimatedTime: "15-20 mins"
   }
 ];
+
+let lastOrderId = 1002;
+let orders: Order[] = loadOrders();
+
+function loadOrders(): Order[] {
+  try {
+    if (fs.existsSync(DB_FILE)) {
+      const data = fs.readFileSync(DB_FILE, "utf-8");
+      const parsed = JSON.parse(data) as Order[];
+      
+      let maxId = 1002;
+      parsed.forEach((order) => {
+        const numPart = parseInt(order.id.replace("BAKE-", ""));
+        if (!isNaN(numPart) && numPart > maxId) {
+          maxId = numPart;
+        }
+      });
+      lastOrderId = maxId;
+      return parsed;
+    }
+  } catch (err) {
+    console.error("Error reading orders-db.json, using default seed orders:", err);
+  }
+
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(defaultOrders, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Error creating initial orders-db.json:", err);
+  }
+  return defaultOrders;
+}
+
+function saveOrders() {
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(orders, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Error saving orders-db.json:", err);
+  }
+}
 
 // Helper price calculation function
 function runCalculateOrderPrice(items: any[], deliveryArea?: string) {
@@ -455,6 +530,58 @@ function runGetOrderStatus(orderId: string) {
   };
 }
 
+// Generate checkout receipt / kitchen handoff report (Reporting Tool)
+function runGenerateReceiptReport(orderId: string) {
+  const order = orders.find((o) => o.id.toLowerCase() === orderId.toLowerCase());
+  if (!order) {
+    throw new Error(`Order '${orderId}' not found.`);
+  }
+
+  const itemsTable = order.items
+    .map(
+      (item) =>
+        `| ${item.quantity}x | ${item.name} ${
+          item.toppings.length > 0 ? `(with ${item.toppings.join(", ")})` : ""
+        } | $${(item.price * item.quantity).toFixed(2)} |`
+    )
+    .join("\n");
+
+  const report = `
+========================================
+       MANAKISH BAKERY RECEIPT
+========================================
+Order ID:     ${order.id}
+Date/Time:    ${new Date(order.createdAt).toLocaleString()}
+Customer:     ${order.customerName}
+Service:      ${order.deliveryType.toUpperCase()}
+Status:       ${order.status}
+----------------------------------------
+ITEMIZED ORDER BREAKDOWN:
+| Qty | Item Details | Total Price |
+|---|---|---|
+${itemsTable}
+----------------------------------------
+FINANCIAL SUMMARY:
+Subtotal:     $${order.subtotal.toFixed(2)}
+Delivery Fee: $${order.deliveryFee.toFixed(2)}
+GRAND TOTAL:  $${order.total.toFixed(2)}
+----------------------------------------
+Logistics details:
+Estimated Delivery/Pickup Time: ${order.estimatedTime}
+${order.deliveryAddress ? `Delivery Address: ${order.deliveryAddress} (${order.deliveryArea})` : "Pickup Location: Counter 1"}
+
+Note from Baker Asmaa: 
+- "We hope you enjoy your fresh, wood-fired flatbreads! To reheat, place them in a hot skillet for 1-2 minutes until the cheese/crust crisps up perfectly!"
+========================================
+`;
+
+  return {
+    success: true,
+    report: report.trim(),
+    order,
+  };
+}
+
 // Gemini Tools Definitions
 const tools = [
   {
@@ -588,6 +715,17 @@ const tools = [
           required: ["orderId"],
         },
       },
+      {
+        name: "generateReceiptReport",
+        description: "Produces a formal structured receipt report, kitchen ticket, and handoff advice for a specific Order ID. Use this to summarize a finished order.",
+        parameters: {
+          type: "OBJECT",
+          properties: {
+            orderId: { type: "STRING", description: "The unique Order ID." },
+          },
+          required: ["orderId"],
+        },
+      },
     ],
   },
 ];
@@ -606,7 +744,7 @@ async function handleGeminiAgent(messages: any[]) {
       model: "gemini-3.5-flash",
       contents: currentMessages,
       config: {
-        systemInstruction: `You are the warm, polite, and extremely efficient AI Assistant for "Manakish Bakery" (run by Asmaa Hajj Chehade and Mohammad).
+        systemInstruction: `You are the warm, polite, and extremely efficient AI Assistant for "Manakish Bakery" (run by Asmaa Hajj Chehade and Mohammad Rayed).
 Your goal is to offer pristine customer support and seamlessly handle orders.
 
 Here is the context of your tools:
@@ -617,12 +755,13 @@ Here is the context of your tools:
 5. "cancelOrder": Cancels an active order using its Order ID.
 6. "updateOrder": Updates an order with a brand new list of items and options.
 7. "getOrderStatus": Retrieves the live status of an order.
+8. "generateReceiptReport": Produces a formal structured receipt report, kitchen ticket, and handoff advice for a specific Order ID. Use this tool immediately after successfully creating an order or whenever the customer wants a formal invoice or receipt summary!
 
 Strict Guidelines:
 - You MUST call "getMenu" or "getDeliveryAreasAndHours" when asked about the menu or delivery zones. Do not invent items or prices!
 - If the customer wants to order, guide them through. Collect their name, items, toppings, delivery/pickup preference, and if delivery, their area & address.
 - ALWAYS calculate the price breakdown using "calculateOrderPrice" and state it clearly before asking "Would you like me to place this order for you?"
-- Once they say yes, call "createOrder" and provide the Order ID (e.g. BAKE-1003) and details.
+- Once they say yes, call "createOrder" and provide the Order ID (e.g. BAKE-1003) and details. Then, immediately call "generateReceiptReport" to display a formal structured receipt summary!
 - Be encouraging and warm! Recommend pairings (e.g., "A refreshing glass of Ayran pairs perfectly with our Zaatar Manousheh!").
 - Keep answers compact, structured, and easy to read. Use bullet points or markdown tables.`,
         tools: tools as any,
@@ -660,8 +799,10 @@ Strict Guidelines:
             args.deliveryArea,
             args.deliveryAddress
           );
+          saveOrders(); // Persist newly created order to database
         } else if (call.name === "cancelOrder") {
           result = runCancelOrder(args.orderId);
+          saveOrders(); // Persist order cancellation to database
         } else if (call.name === "updateOrder") {
           result = runUpdateOrder(
             args.orderId,
@@ -670,8 +811,11 @@ Strict Guidelines:
             args.deliveryArea,
             args.deliveryAddress
           );
+          saveOrders(); // Persist order update to database
         } else if (call.name === "getOrderStatus") {
           result = runGetOrderStatus(args.orderId);
+        } else if (call.name === "generateReceiptReport") {
+          result = runGenerateReceiptReport(args.orderId);
         } else {
           result = { error: `Tool ${call.name} is not implemented.` };
         }
@@ -745,6 +889,7 @@ app.post("/api/orders/step", (req, res) => {
     }
   }
 
+  saveOrders(); // Save status update to persistent file database
   res.json({ success: true, order });
 });
 

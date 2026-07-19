@@ -1,0 +1,65 @@
+[
+  {
+    "id": "BAKE-1001",
+    "customerName": "Asmaa Hajj Chehade",
+    "items": [
+      {
+        "itemId": "m1",
+        "name": "Zaatar Manousheh",
+        "quantity": 2,
+        "price": 3,
+        "toppings": [
+          "Extra Olives",
+          "Fresh Mint"
+        ]
+      },
+      {
+        "itemId": "m2",
+        "name": "Cheese Manousheh",
+        "quantity": 1,
+        "price": 4.5,
+        "toppings": [
+          "Spicy Harissa"
+        ]
+      }
+    ],
+    "deliveryType": "delivery",
+    "deliveryArea": "Downtown",
+    "deliveryAddress": "123 Elm Street, Apt 4B",
+    "deliveryFee": 2,
+    "subtotal": 13,
+    "total": 15,
+    "status": "Delivered",
+    "createdAt": "2026-07-19T09:32:48.276Z",
+    "estimatedTime": "Delivered"
+  },
+  {
+    "id": "BAKE-1002",
+    "customerName": "Mohammad",
+    "items": [
+      {
+        "itemId": "m3",
+        "name": "Lahm Bi Ajeen",
+        "quantity": 1,
+        "price": 5.5,
+        "toppings": [
+          "Pomegranate Molasses"
+        ]
+      },
+      {
+        "itemId": "t1",
+        "name": "Ayran Yogurt Drink",
+        "quantity": 1,
+        "price": 2,
+        "toppings": []
+      }
+    ],
+    "deliveryType": "pickup",
+    "deliveryFee": 0,
+    "subtotal": 8.25,
+    "total": 8.25,
+    "status": "Baking",
+    "createdAt": "2026-07-19T12:22:48.277Z",
+    "estimatedTime": "15-20 mins"
+  }
+]

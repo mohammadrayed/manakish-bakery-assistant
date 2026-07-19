@@ -44,7 +44,7 @@ Our system implements 8 fully documented and typed tools registered directly wit
 
 ### 3. Safety, Validation, & Fallback (Course Section 7)
 * **Safety Gate Confirmation:** The agent's system instructions strictly forbid calling `createOrder` or `updateOrder` until the agent has displayed the full price breakdown and secured the customer's explicit *"Yes/Confirm"* statement.
-* **Deterministic Fallback:** If a customer requests a delivery area outside our active delivery zone (Downtown, Westside, Northside, Eastside, Southside) or requests an invalid topping, the analysis tool throws a descriptive error, and the agent explains the limitation and prompts alternative action safely.
+* **Deterministic Fallback:** If a customer requests a delivery area outside our active delivery zone (such as Hamra, Achrafieh, Downtown, Badaro, Verdun, and other Beirut neighborhoods/suburbs) or requests an invalid topping, the analysis tool throws a descriptive error, and the agent explains the limitation and prompts alternative action safely.
 * **Orchestration Bounds:** The execution loop sets a hard ceiling of `maxAttempts = 5` to process tool calls, preventing runaway token usage.
 
 ---
@@ -89,7 +89,7 @@ To aid in compiling your **Minimum Evaluation Suite (Section 11)**, you can perf
 1. **Grounded Domain Question:** Ask *"What ingredients are in the Zaatar Manousheh?"* (Agent will call `getMenu` and reply precisely).
 2. **Analysis Input:** Ask *"How much would it cost to order 3 Cheese Manousheh with Sesame Seeds?"* (Agent will call `calculateOrderPrice`).
 3. **Invalid Topping Check:** Ask to add *"Pineapple"* topping to a flatbread. (Analysis tool returns exception; agent handles it gracefully).
-4. **Out-of-Zone Delivery:** Ask for delivery to *"Beverly Hills"*. (Agent states restriction to Downtown/Westside/etc.).
+4. **Out-of-Zone Delivery:** Ask for delivery to *"Byblos"*. (Agent states restriction to Downtown/Westside/etc.).
 5. **Successful Action:** Guide the agent to order a *Zaatar Manousheh*, provide your name, confirm the checkout pricing, and agree. (Agent triggers `createOrder` followed by `generateReceiptReport`).
 6. **Cancellation Action:** Ask to cancel the order ID provided. (Agent calls `cancelOrder` and displays confirmation).
 7. **Multi-turn Memory Check:** Tell the agent your name at the start. Chat about other menu items, and then say *"Let's place my order now"*. (Agent remembers your name).
