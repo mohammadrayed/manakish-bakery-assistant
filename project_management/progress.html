@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STATUS REPORT - Manakish Bakery AI Agent Platform (Full Project)</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --border-dark: #334155;
+      --header-bg: #1e3a8a;
+      --header-text: #ffffff;
+      --table-alt: #f1f5f9;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .document-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 40px 50px;
+    }
+
+    /* Top Running Header */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 8px;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Main Title Block */
+    .title-block {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title-block h1 {
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 5px;
+      font-weight: 800;
+    }
+
+    .title-block h2 {
+      font-size: 1.4rem;
+      letter-spacing: 1.5px;
+      color: #1e293b;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .title-block p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Section Headings */
+    h2.section-title {
+      font-size: 1.3rem;
+      color: #000;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 4px;
+      margin-top: 32px;
+      margin-bottom: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+      font-size: 0.95rem;
+    }
+
+    /* Callout & Note Boxes */
+    .note-box {
+      background-color: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      margin: 18px 0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.88rem;
+    }
+
+    table th {
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border: 1px solid var(--primary-dark);
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    table tr:nth-child(even) {
+      background-color: var(--table-alt);
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .font-bold { font-weight: 700; }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-essential { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-high { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-critical { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .badge-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+
+    /* Doc Footer */
+    .doc-footer {
+      border-top: 2px solid var(--text-main);
+      margin-top: 40px;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background-color: #fff;
+        padding: 0;
+      }
+      .document-container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .nav-bar { display: none; }
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.82rem;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--primary);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-bar a:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .nav-bar a.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<div class="document-container">
+
+  <!-- Document Suite Navigation -->
+  <div class="nav-bar">
+    <a href="/project_management/charter.html">1. Charter</a>
+    <a href="/project_management/plan.html">2. Management Plan</a>
+    <a href="/project_management/progress.html" class="active">3. Status Report</a>
+    <a href="/project_management/payroll.html">4. Payroll Summary</a>
+    <a href="/project_management/ev_sheet.html">5. EVM Analysis</a>
+    <a href="/project_management/closure_and_change_control.html">6. Closure &amp; Change Control</a>
+  </div>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span>SoftSolution Engineering Leadership</span>
+    <span>Status Report – SR-241-04-SS</span>
+  </div>
+
+  <!-- Title Block -->
+  <div class="title-block">
+    <h1>FINAL STATUS REPORT</h1>
+    <h2>MANAKISH BAKERY AI PLATFORM – FULL PROJECT COMPLETION</h2>
+    <p>Project Period: 01/05/2026 – 28/05/2026 (Weeks 1 to 4 Complete)</p>
+  </div>
+
+  <!-- Section 1 & 2 side by side / summary grid -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+    
+    <div>
+      <h2 class="section-title" style="margin-top: 0;">
+        <span>1. Schedule Summary</span>
+        <span class="badge badge-success">Completed</span>
+      </h2>
+      <table>
+        <tbody>
+          <tr>
+            <td class="font-bold">Planned Start</td>
+            <td class="text-right">01/05/2026</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Actual Start</td>
+            <td class="text-right">01/05/2026</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Planned End</td>
+            <td class="text-right">28/05/2026</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Actual Completion</td>
+            <td class="text-right font-bold" style="color: var(--success);">28/05/2026 (100%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h2 class="section-title" style="margin-top: 0;">
+        <span>2. Budget Overview</span>
+        <span class="badge badge-high font-bold">5.88% Variance (CPI 0.94)</span>
+      </h2>
+      <table>
+        <tbody>
+          <tr>
+            <td class="font-bold">Total Planned Budget ($)</td>
+            <td class="text-right font-bold">$7,040.00</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Total Actual Spent ($)</td>
+            <td class="text-right font-bold" style="color: var(--danger);">$7,454.00</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Cost Variance ($)</td>
+            <td class="text-right font-bold" style="color: var(--danger);">-$414.00 (Overrun)</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Project Effort Delivered</td>
+            <td class="text-right font-bold">408 Hours (384 Planned + 24 OT)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Section 3: Planned Activities - Full Project -->
+  <h2 class="section-title">
+    <span>3. Planned Activities Baseline – Full Project Schedule (Weeks 1 – 4)</span>
+    <span class="badge badge-essential">Baseline Schedule</span>
+  </h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 8%;">ID</th>
+        <th style="width: 38%;">Activity Description</th>
+        <th style="width: 15%;" class="text-right">Planned Cost ($)</th>
+        <th style="width: 15%;" class="text-center">Planned Progress</th>
+        <th style="width: 12%;" class="text-center">Start Date</th>
+        <th style="width: 12%;" class="text-center">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Week 1 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="6">WEEK 1: REQUIREMENTS, SCHEMAS & INITIAL ARCHITECTURE (01/05 – 07/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.1</td>
+        <td>Project Governance & Governance Control Week 1</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">01/05</td>
+        <td class="text-center">07/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.1</td>
+        <td>Elicit Tool Schemas & Parameter Validation Rules</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">01/05</td>
+        <td class="text-center">02/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.2</td>
+        <td>Analyze Agent Prompting & Context Window Scope</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">02/05</td>
+        <td class="text-center">03/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.3</td>
+        <td>Review Zone Boundary API Requirements</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">03/05</td>
+        <td class="text-center">04/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.1</td>
+        <td>Design System Architecture & Express Flow</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">04/05</td>
+        <td class="text-center">05/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.2</td>
+        <td>Design Database Schema & JSON File Persistence</td>
+        <td class="text-right">$288.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">04/05</td>
+        <td class="text-center">06/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.3</td>
+        <td>Design React UI Wireframes & Telemetry Layout</td>
+        <td class="text-right">$250.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">05/05</td>
+        <td class="text-center">07/05</td>
+      </tr>
+
+      <!-- Week 2 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="6">WEEK 2: CORE TOOL ENGINE & PERSISTENCE LAYER (08/05 – 14/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.2</td>
+        <td>Project Governance & Milestone Verification Week 2</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">08/05</td>
+        <td class="text-center">14/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3.1</td>
+        <td>Implement Zone Distance Radius Engine (Haversine)</td>
+        <td class="text-right">$432.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">08/05</td>
+        <td class="text-center">11/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3.2</td>
+        <td>Implement File Store Engine (`orders-db.json`)</td>
+        <td class="text-right">$432.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">08/05</td>
+        <td class="text-center">11/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.1.1</td>
+        <td>Develop React UI Component Hierarchy & Styling</td>
+        <td class="text-right">$380.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">11/05</td>
+        <td class="text-center">14/05</td>
+      </tr>
+
+      <!-- Week 3 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="6">WEEK 3: AGENT LOGIC, TELEMETRY & INTEGRATION (15/05 – 21/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.3</td>
+        <td>Project Governance & Risk Review Week 3</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">15/05</td>
+        <td class="text-center">21/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.4.1</td>
+        <td>Construct Gemini Multi-turn Agent Execution Loop</td>
+        <td class="text-right">$864.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">15/05</td>
+        <td class="text-center">19/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.2.1</td>
+        <td>Build Live Operational Telemetry & Trace Inspector</td>
+        <td class="text-right">$310.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">18/05</td>
+        <td class="text-center">21/05</td>
+      </tr>
+
+      <!-- Week 4 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="6">WEEK 4: DEPLOYMENT, TESTING & FINAL SIGNOFF (22/05 – 28/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.4</td>
+        <td>Project Governance, Quality Assurance & Course Signoff</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">22/05</td>
+        <td class="text-center">28/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.1.1</td>
+        <td>Multi-stage Non-Root Dockerization & Probes</td>
+        <td class="text-right">$150.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">22/05</td>
+        <td class="text-center">25/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.2.1</td>
+        <td>End-to-End Stress Testing & Final Production Release</td>
+        <td class="text-right">$158.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">25/05</td>
+        <td class="text-center">28/05</td>
+      </tr>
+      <tr style="background-color: #cbd5e1; font-weight: bold;">
+        <td colspan="2">TOTAL PLANNED BASELINE</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-center"><span class="badge badge-success">100%</span></td>
+        <td class="text-center">01/05</td>
+        <td class="text-center">28/05</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 4: Activities Realized - Full Project -->
+  <h2 class="section-title">
+    <span>4. Activities Realized Log – Full Project Execution (408 Total Hours)</span>
+    <span class="badge badge-success">Execution Complete</span>
+  </h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 8%;">ID</th>
+        <th style="width: 32%;">Activity Description</th>
+        <th style="width: 22%;">Responsible Lead</th>
+        <th style="width: 8%;" class="text-center">Hours</th>
+        <th style="width: 14%;" class="text-right">Actual Cost ($)</th>
+        <th style="width: 8%;" class="text-center">Start</th>
+        <th style="width: 8%;" class="text-center">End</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Week 1 Realized -->
+      <tr style="background-color: #f1f5f9; font-weight: bold;">
+        <td colspan="7">WEEK 1 REALIZED DELIVERABLES ($1,914.00 – 104.0 h)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.1</td>
+        <td>Monitor & Control Governance Week 1</td>
+        <td>Project Lead</td>
+        <td class="text-center">40</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">01/05</td>
+        <td class="text-center">07/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.1</td>
+        <td>Elicit Tool Schemas & Parameter Rules</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">8</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">01/05</td>
+        <td class="text-center">02/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.2</td>
+        <td>Analyze System Prompt & Memory State</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">8</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">02/05</td>
+        <td class="text-center">03/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.3</td>
+        <td>Review Delivery Zone & Haversine Alg.</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">8</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">03/05</td>
+        <td class="text-center">04/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.1</td>
+        <td>Design System Architecture & Express Flow</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">8</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">04/05</td>
+        <td class="text-center">05/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.2</td>
+        <td>Design JSON DB Schema & Atomic Locks</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">16</td>
+        <td class="text-right">$288.00</td>
+        <td class="text-center">04/05</td>
+        <td class="text-center">06/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.3</td>
+        <td>Design React UI & Trace Telemetry View</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td class="text-center">16</td>
+        <td class="text-right">$250.00</td>
+        <td class="text-center">05/05</td>
+        <td class="text-center">07/05</td>
+      </tr>
+
+      <!-- Week 2 Realized -->
+      <tr style="background-color: #f1f5f9; font-weight: bold;">
+        <td colspan="7">WEEK 2 REALIZED DELIVERABLES ($2,224.00 – 121.8 h)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.2</td>
+        <td>Monitor & Control Governance Week 2</td>
+        <td>Project Lead</td>
+        <td class="text-center">40</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">08/05</td>
+        <td class="text-center">14/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3.1</td>
+        <td>Build Delivery Zone Calculation Engine</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">24</td>
+        <td class="text-right">$432.00</td>
+        <td class="text-center">08/05</td>
+        <td class="text-center">11/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3.2</td>
+        <td>Build File Persistence Store (+10h Mutex Locks)</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">34</td>
+        <td class="text-right">$612.00</td>
+        <td class="text-center">08/05</td>
+        <td class="text-center">11/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.1.1</td>
+        <td>Develop Responsive React Application</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td class="text-center">23.8</td>
+        <td class="text-right">$380.00</td>
+        <td class="text-center">11/05</td>
+        <td class="text-center">14/05</td>
+      </tr>
+
+      <!-- Week 3 Realized -->
+      <tr style="background-color: #f1f5f9; font-weight: bold;">
+        <td colspan="7">WEEK 3 REALIZED DELIVERABLES ($2,118.00 – 115.4 h)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.3</td>
+        <td>Monitor & Control Governance Week 3</td>
+        <td>Project Lead</td>
+        <td class="text-center">40</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">15/05</td>
+        <td class="text-center">21/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.4.1</td>
+        <td>Construct Gemini Execution Loop (+8h Prompt Tuning)</td>
+        <td>Mohammad Rayed</td>
+        <td class="text-center">56</td>
+        <td class="text-right">$1,008.00</td>
+        <td class="text-center">15/05</td>
+        <td class="text-center">19/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.2.1</td>
+        <td>Construct Live Operational Telemetry Inspector</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td class="text-center">19.4</td>
+        <td class="text-right">$310.00</td>
+        <td class="text-center">18/05</td>
+        <td class="text-center">21/05</td>
+      </tr>
+
+      <!-- Week 4 Realized -->
+      <tr style="background-color: #f1f5f9; font-weight: bold;">
+        <td colspan="7">WEEK 4 REALIZED DELIVERABLES ($1,198.00 – 66.8 h)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.4</td>
+        <td>Monitor & Control Governance & Signoff Week 4</td>
+        <td>Project Lead</td>
+        <td class="text-center">40</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">22/05</td>
+        <td class="text-center">28/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.1.1</td>
+        <td>Multi-Stage Dockerization (+6h Volume Permissions)</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td class="text-center">16</td>
+        <td class="text-right">$240.00</td>
+        <td class="text-center">22/05</td>
+        <td class="text-center">25/05</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.2.1</td>
+        <td>System Testing, Verification & Final Deployment</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td class="text-center">10.8</td>
+        <td class="text-right">$158.00</td>
+        <td class="text-center">25/05</td>
+        <td class="text-center">28/05</td>
+      </tr>
+
+      <!-- Total Realized -->
+      <tr style="background-color: #cbd5e1; font-weight: bold;">
+        <td colspan="3">TOTAL REALIZED PROJECT COST & HOURS</td>
+        <td class="text-center">408 h</td>
+        <td class="text-right" style="color: var(--danger);">$7,454.00</td>
+        <td class="text-center">01/05</td>
+        <td class="text-center">28/05</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 5: Earned Value Management -->
+  <h2 class="section-title">
+    <span>5. Complete Earned Value Management (EVM) Breakdown</span>
+    <span class="badge badge-high">CPI 0.94 Performance</span>
+  </h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="text-center">Reporting Week</th>
+        <th class="text-right">PV ($)</th>
+        <th class="text-right">AC ($)</th>
+        <th class="text-right">EV ($)</th>
+        <th class="text-right">SV ($)</th>
+        <th class="text-right">CV ($)</th>
+        <th class="text-center">SPI</th>
+        <th class="text-center">CPI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-center font-bold">Week 1 (01/05 – 07/05)</td>
+        <td class="text-right">$1,914.00</td>
+        <td class="text-right">$1,914.00</td>
+        <td class="text-right">$1,914.00</td>
+        <td class="text-right" style="color: var(--success); font-weight:700;">$0.00</td>
+        <td class="text-right" style="color: var(--success); font-weight:700;">$0.00</td>
+        <td class="text-center font-bold">1.00</td>
+        <td class="text-center font-bold">1.00</td>
+      </tr>
+      <tr>
+        <td class="text-center font-bold">Week 2 (08/05 – 14/05)</td>
+        <td class="text-right">$2,044.00</td>
+        <td class="text-right">$2,224.00</td>
+        <td class="text-right">$2,044.00</td>
+        <td class="text-right" style="color: var(--success); font-weight:700;">$0.00</td>
+        <td class="text-right" style="color: var(--danger); font-weight:700;">-$180.00</td>
+        <td class="text-center font-bold">1.00</td>
+        <td class="text-center font-bold">0.92</td>
+      </tr>
+      <tr>
+        <td class="text-center font-bold">Week 3 (15/05 – 21/05)</td>
+        <td class="text-right">$1,974.00</td>
+        <td class="text-right">$2,118.00</td>
+        <td class="text-right">$1,974.00</td>
+        <td class="text-right" style="color: var(--success); font-weight:700;">$0.00</td>
+        <td class="text-right" style="color: var(--danger); font-weight:700;">-$144.00</td>
+        <td class="text-center font-bold">1.00</td>
+        <td class="text-center font-bold">0.93</td>
+      </tr>
+      <tr>
+        <td class="text-center font-bold">Week 4 (22/05 – 28/05)</td>
+        <td class="text-right">$1,108.00</td>
+        <td class="text-right">$1,198.00</td>
+        <td class="text-right">$1,108.00</td>
+        <td class="text-right" style="color: var(--success); font-weight:700;">$0.00</td>
+        <td class="text-right" style="color: var(--danger); font-weight:700;">-$90.00</td>
+        <td class="text-center font-bold">1.00</td>
+        <td class="text-center font-bold">0.92</td>
+      </tr>
+      <tr style="background-color: #cbd5e1; font-weight: bold;">
+        <td class="text-center">CUMULATIVE PROJECT TOTAL</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right" style="color: var(--danger);">$7,454.00</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right" style="color: var(--success); font-weight:700;">$0.00</td>
+        <td class="text-right" style="color: var(--danger); font-weight:700;">-$414.00</td>
+        <td class="text-center font-bold">1.00</td>
+        <td class="text-center font-bold" style="color: var(--primary);">0.94</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box" style="margin-top: 10px;">
+    <strong>EVM Variable Definitions & Performance Variance Summary:</strong>
+    <ul style="margin-left: 20px; margin-bottom: 0; margin-top: 5px;">
+      <li><strong>PV (Planned Value):</strong> $7,040.00 cumulative baseline planned cost across 384 planned hours.</li>
+      <li><strong>AC (Actual Cost):</strong> $7,454.00 actual cost incurred across 408 engineering hours (24 overtime hours).</li>
+      <li><strong>EV (Earned Value):</strong> $7,040.00 total value of completed project work (100% scope realized).</li>
+      <li><strong>SV (Schedule Variance = EV - PV):</strong> $0.00 — Project delivered on schedule (SPI = 1.00).</li>
+      <li><strong>CV (Cost Variance = EV - AC):</strong> -$414.00 — Moderate cost overrun of 5.88% (CPI = 0.94), fully absorbed by internal contingency reserve without impacting client contract price ($29,000).</li>
+    </ul>
+  </div>
+
+  <!-- Section 6: Key Technical Deliverables & Risk Resolutions -->
+  <h2 class="section-title">
+    <span>6. Technical Deliverables Summary & Resolved Challenges</span>
+    <span class="badge badge-success">Deliverables Verified</span>
+  </h2>
+
+  <ol style="margin-left: 24px; margin-bottom: 25px; font-size: 0.95rem;">
+    <li style="margin-bottom: 10px;">
+      <strong>Gemini Gen AI SDK Conversational Core:</strong> Integrated multi-turn context loop with strict schema verification and tool calls (`check_delivery_zone`, `create_bakery_order`, `get_bakery_menu`, `update_order_status`).
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Atomic JSON File Database (`/app/data/orders-db.json`):</strong> Implemented persistent atomic file read/write store with non-root volume permissions (UID 1000) and auto-healing fallback seed initialization.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Spatial Zone Delivery Engine:</strong> Validated Haversine distance calculations and strict price boundaries (Zone 1: &lt;5km $2.50, Zone 2: 5–10km $5.00, Out of Zone rejection).
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Live Operational Telemetry Dashboard:</strong> Developed real-time trace inspector in React showing agent thought reasoning, tool call execution parameters, latencies, and active state transitions.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Multi-Stage Docker Container & Health Probes:</strong> Created optimized, lightweight Alpine Docker container running non-root with container health check endpoint (`/api/health`).
+    </li>
+  </ol>
+
+  <!-- Signoff Block -->
+  <div style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-dark);">
+    <div>
+      <p class="font-bold" style="margin-bottom: 4px;">Mohammad Rayed & Asmaa Hajj Chehade</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Tools, Agent & Platform Engineering Leads</p>
+    </div>
+    <div class="text-right">
+      <p class="font-bold" style="margin-bottom: 4px;">Dr. Mohamad Aoude</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Course Director & Project Evaluator</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>Manakish Bakery FINAL STATUS REPORT – Full Project</span>
+    <span>ULFG Project Management Dr M AOUDE - Page 1 of 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

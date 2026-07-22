@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT CLOSURE & CHANGE CONTROL REPORT - Manakish Bakery AI Agent System</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --border-dark: #334155;
+      --header-bg: #1e3a8a;
+      --header-text: #ffffff;
+      --table-alt: #f1f5f9;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .document-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 40px 50px;
+    }
+
+    /* Running Top Header */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .doc-header-right {
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Title Block */
+    .title-block {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 20px;
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+    }
+
+    .title-block h1 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .title-block p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Section Header styling */
+    h2.section-title {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 6px;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h3.subsection-title {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    p, li {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--table-alt);
+    }
+
+    .total-row {
+      background-color: #e2e8f0 !important;
+      font-weight: bold;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-approved {
+      background-color: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .badge-variance {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .badge-info {
+      background-color: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .font-bold { font-weight: 700; }
+
+    .callout-box {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--primary);
+      border: 1px solid var(--border);
+      border-left-width: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .callout-box.warning {
+      border-left-color: var(--warning);
+      background-color: #fffbeb;
+    }
+
+    .callout-box.success {
+      border-left-color: var(--success);
+      background-color: #f0fdf4;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 35px;
+    }
+
+    .signature-card {
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+
+    .signature-line {
+      border-bottom: 1px solid var(--text-main);
+      margin-top: 35px;
+      margin-bottom: 8px;
+    }
+
+    .print-button {
+      display: block;
+      width: 100%;
+      max-width: 220px;
+      margin: 30px auto 0 auto;
+      padding: 10px 20px;
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .print-button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    @media print {
+      body { padding: 0; background: white; }
+      .document-container { box-shadow: none; border: none; padding: 0; }
+      .print-button { display: none; }
+    }
+  </style>
+  <style>
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.82rem;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--primary);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-bar a:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .nav-bar a.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+      font-weight: 700;
+    }
+    @media print {
+      .nav-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="document-container">
+
+  <!-- Document Suite Navigation -->
+  <div class="nav-bar">
+    <a href="/project_management/charter.html">1. Charter</a>
+    <a href="/project_management/plan.html">2. Management Plan</a>
+    <a href="/project_management/progress.html">3. Status Report</a>
+    <a href="/project_management/payroll.html">4. Payroll Summary</a>
+    <a href="/project_management/ev_sheet.html">5. EVM Analysis</a>
+    <a href="/project_management/closure_and_change_control.html" class="active">6. Closure &amp; Change Control</a>
+  </div>
+
+  <!-- Running Header -->
+  <div class="doc-header">
+    <div>FORMAL PROJECT CLOSURE & CHANGE CONTROL REPORT</div>
+    <div class="doc-header-right">Doc Ref: PCR-241-01-SS | Date: May 28, 2026</div>
+  </div>
+
+  <!-- Title Block -->
+  <div class="title-block">
+    <h1>Project Closure & Change Control Report</h1>
+    <p>Manakish Bakery AI Agent System – Final Acceptance, Variance Reconciliation & Handover</p>
+  </div>
+
+  <!-- Key Metadata Summary Table -->
+  <table>
+    <tbody>
+      <tr>
+        <td style="width: 20%;" class="font-bold">Project Name</td>
+        <td style="width: 30%;">Manakish Bakery AI Agent System</td>
+        <td style="width: 20%;" class="font-bold">Contract Value</td>
+        <td style="width: 30%; font-weight: bold; color: var(--success);">$29,000.00 Fixed Price</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Lead Engineers</td>
+        <td>Asmaa Hajj Chehade &amp; Mohammad Rayed</td>
+        <td class="font-bold">Baseline Budget (PV)</td>
+        <td>$7,040.00 (384 Planned Hours)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Academic Director</td>
+        <td>Dr. Mohamad Aoude</td>
+        <td class="font-bold">Actual Cost (AC)</td>
+        <td style="color: var(--danger);" class="font-bold">$7,454.00 (408 Realized Hours)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Execution Window</td>
+        <td>May 01, 2026 – May 28, 2026 (4 Weeks)</td>
+        <td class="font-bold">Cost Variance (CV)</td>
+        <td>-$414.00 (+5.88% Overrun / CPI 0.94)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Final Status</td>
+        <td><span class="badge badge-approved">Completed &amp; Accepted</span></td>
+        <td class="font-bold">Realized Gross Margin</td>
+        <td style="color: var(--success);" class="font-bold">$21,546.00 (74.3% Profitability)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 1: Executive Summary -->
+  <h2 class="section-title">
+    <span>1. Executive Project Closure Summary</span>
+    <span class="badge badge-approved">Formal Sign-Off</span>
+  </h2>
+  <div class="callout-box success">
+    <p style="margin-bottom: 0;">
+      <strong>Project Objective Achieved:</strong> The <em>Manakish Bakery AI Agent System</em> has successfully fulfilled all technical, operational, and business scope requirements defined in the Project Charter (CHARTER-241-01). The system was fully delivered, deployed on Docker/Cloud Run, and validated on May 28, 2026. The client has accepted all core deliverables with zero outstanding critical defects.
+    </p>
+  </div>
+  <p>
+    The project delivered a full-stack, AI-powered bakery order management system integrating a Node.js/Express backend, Gemini AI SDK tool-calling execution engine, React 18 single-page UI, persistent atomic JSON data storage, and interactive execution trace logging.
+  </p>
+
+  <!-- Section 2: Change Control Management & Engineering Variance Log -->
+  <h2 class="section-title">
+    <span>2. Change Control Management &amp; Engineering Variance Log</span>
+    <span class="badge badge-variance">3 Approved CRs</span>
+  </h2>
+  <p>
+    During the execution phase, three technical Change Requests (CRs) were submitted, analyzed, and approved by the Project Leads to address unexpected technical complexities. All cost impacts were fully absorbed by the internal risk contingency reserve without altering the client contract price ($29,000.00).
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">CR ID</th>
+        <th style="width: 25%;">Change Request Title</th>
+        <th style="width: 32%;">Technical Rationale &amp; Root Cause</th>
+        <th style="width: 15%;" class="text-center">Hours Impact</th>
+        <th style="width: 18%;" class="text-right">Cost Impact ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">CR-01</td>
+        <td>Atomic File Store Mutex Locks &amp; Race Condition Safety</td>
+        <td>Concurrent customer chat requests during load testing caused potential file overwrite hazards in <code>data/orders.json</code>. Implemented synchronous mutex queues and atomic temp swaps.</td>
+        <td class="text-center font-bold">+10 h<br><small>(M. Rayed)</small></td>
+        <td class="text-right font-bold">$180.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">CR-02</td>
+        <td>Gemini SDK Multi-Turn Tool Schema Constraints</td>
+        <td>Initial AI model invocations occasionally generated loose arguments for <code>add_topping</code> and <code>check_delivery_area</code>. Applied strict JSON schema validation and system instruction bounds.</td>
+        <td class="text-center font-bold">+8 h<br><small>(M. Rayed)</small></td>
+        <td class="text-right font-bold">$144.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">CR-03</td>
+        <td>Alpine Non-Root Docker Volume Mount Permissions</td>
+        <td>Cloud Run containerization under non-root <code>node</code> user (UID 1000) encountered read/write permission errors on the persistent <code>/app/data</code> volume. Resolved via Dockerfile startup permission scripts.</td>
+        <td class="text-center font-bold">+6 h<br><small>(A. Chehade)</small></td>
+        <td class="text-right font-bold">$90.00</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3" class="font-bold text-right">Total Scope Variance &amp; Engineering Overtime Incurred</td>
+        <td class="text-center font-bold style='color: var(--danger);'">+24 h</td>
+        <td class="text-right font-bold" style="color: var(--danger);">$414.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 3: Final Financial & Earned Value Management (EVM) Reconciliation -->
+  <h2 class="section-title">
+    <span>3. Financial &amp; Earned Value Management (EVM) Reconciliation</span>
+    <span class="badge badge-info">EVM Audit</span>
+  </h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>EVM Metric</th>
+        <th class="text-right">Planned Baseline</th>
+        <th class="text-right">Actual Realized</th>
+        <th class="text-right">Variance</th>
+        <th>Audit Explanation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">Planned Value (PV)</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right">$0.00</td>
+        <td>Total baseline budgeted cost across 384 planned hours.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Earned Value (EV)</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right">$0.00</td>
+        <td>100% of project deliverables completed and verified.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Actual Cost (AC)</td>
+        <td class="text-right">$7,040.00</td>
+        <td class="text-right" style="color: var(--danger); font-weight:700;">$7,454.00</td>
+        <td class="text-right" style="color: var(--danger); font-weight:700;">+$414.00</td>
+        <td>Actual total expenditure across 408 total realized hours.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Schedule Performance Index (SPI)</td>
+        <td class="text-right">1.00</td>
+        <td class="text-right font-bold">1.00</td>
+        <td class="text-right">0.00</td>
+        <td>Project delivered strictly on target on May 28, 2026.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Cost Performance Index (CPI)</td>
+        <td class="text-right">1.00</td>
+        <td class="text-right font-bold" style="color: var(--primary);">0.94</td>
+        <td class="text-right" style="color: var(--danger);">-0.06</td>
+        <td>Minor cost overrun of 5.88% due to technical overtime.</td>
+      </tr>
+      <tr class="total-row">
+        <td class="font-bold">Gross Client Contract Profit</td>
+        <td class="text-right">$21,960.00</td>
+        <td class="text-right" style="color: var(--success); font-size: 1.05rem;">$21,546.00</td>
+        <td class="text-right" style="color: var(--warning);">-$414.00</td>
+        <td>Net profit remains highly robust at 74.3% gross margin.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 4: Deliverable Acceptance Matrix -->
+  <h2 class="section-title">
+    <span>4. Deliverable Acceptance &amp; Verification Matrix</span>
+    <span class="badge badge-approved">100% Verified</span>
+  </h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">WBS</th>
+        <th style="width: 28%;">Deliverable Description</th>
+        <th style="width: 22%;">Owner</th>
+        <th style="width: 22%;">Verification Method</th>
+        <th style="width: 18%;" class="text-center">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">1.1</td>
+        <td>Project Charter &amp; Architecture Specs</td>
+        <td>Mohammad Rayed</td>
+        <td>Documentation Review</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1</td>
+        <td>Domain Data Schemas &amp; Express Endpoints</td>
+        <td>Mohammad Rayed</td>
+        <td>API Integration Tests</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2</td>
+        <td>React UI Component Hierarchy &amp; Theme</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td>UI/UX User Walkthrough</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3</td>
+        <td>Persistent Storage &amp; Mutex Protection</td>
+        <td>Mohammad Rayed</td>
+        <td>Concurrency Load Test</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.4</td>
+        <td>Gemini Gen AI Agent &amp; Tool Invocations</td>
+        <td>Mohammad Rayed</td>
+        <td>Multi-turn Dialog Testing</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.1</td>
+        <td>QA Test Matrix &amp; Edge Case Audits</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td>Automated Linter &amp; Build</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.1</td>
+        <td>Docker Containerization &amp; Deployment</td>
+        <td>Asmaa Hajj Chehade</td>
+        <td>Cloud Run Container Audit</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.2</td>
+        <td>End-User Docs &amp; PM Artifact Package</td>
+        <td>Asmaa &amp; Mohammad</td>
+        <td>Formal Audit Review</td>
+        <td class="text-center"><span class="badge badge-approved">Accepted</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 5: Post-Implementation Lessons Learned -->
+  <h2 class="section-title">
+    <span>5. Post-Implementation Lessons Learned &amp; Retrospective</span>
+  </h2>
+  
+  <div class="callout-box">
+    <h3 class="subsection-title" style="margin-top:0;">Technical &amp; Engineering Insight</h3>
+    <p>
+      • <strong>File System Concurrency:</strong> Relying on JSON file storage in Express requires explicit mutex or queue locks to handle asynchronous non-blocking I/O. Future projects should migrate to SQLite or PostgreSQL for multi-worker scaling.
+      <br>
+      • <strong>Docker Non-Root Volume Mounts:</strong> Containerizing applications under security-hardened Alpine Linux images requires setting explicit owner permissions on data directories before application boot.
+    </p>
+  </div>
+
+  <div class="callout-box">
+    <h3 class="subsection-title" style="margin-top:0;">AI Agent Governance &amp; Prompt Engineering</h3>
+    <p>
+      • <strong>Tool Call Boundaries:</strong> Large Language Models (e.g. Gemini 2.5/3.6) require strictly typed JSON function signatures and boundary constraints in the system prompt to prevent argument hallucination or broken parameter types during multi-turn chats.
+    </p>
+  </div>
+
+  <!-- Section 6: SLA & Operational Handover -->
+  <h2 class="section-title">
+    <span>6. SLA &amp; Maintenance Handover Plan</span>
+  </h2>
+  <p>
+    Following formal closure on May 28, 2026, the system transitions into the 90-day post-launch warranty and SLA support phase:
+  </p>
+  <ul>
+    <li><strong>Tier 1 Support (Bakery Staff):</strong> Management of menu items, prices, and manual order status overrides via the React UI dashboard.</li>
+    <li><strong>Tier 2 Support (Engineering Lead - Mohammad Rayed):</strong> Maintenance of API key rotation, Gemini model updates, and server infrastructure.</li>
+    <li><strong>Target Availability SLA:</strong> 99.9% uptime with maximum target response latency of &lt; 1.5 seconds for AI tool invocations.</li>
+  </ul>
+
+  <!-- Section 7: Formal Approval & Sign-Off -->
+  <h2 class="section-title">
+    <span>7. Formal Approval &amp; Client Sign-Off</span>
+  </h2>
+  <p>
+    By signing below, the Project Representatives confirm that all project deliverables under contract TAP-241-00-SS have been inspected, tested, and accepted in full.
+  </p>
+
+  <div class="signature-grid">
+    <div class="signature-card">
+      <div class="font-bold" style="color: var(--primary);">Mohammad Rayed</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Tools &amp; AI Logic Lead Engineer</div>
+      <div class="signature-line"></div>
+      <div style="font-size: 0.8rem;">Date: May 28, 2026</div>
+    </div>
+
+    <div class="signature-card">
+      <div class="font-bold" style="color: var(--primary);">Asmaa Hajj Chehade</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">UI Platform &amp; Infrastructure Lead Engineer</div>
+      <div class="signature-line"></div>
+      <div style="font-size: 0.8rem;">Date: May 28, 2026</div>
+    </div>
+
+    <div class="signature-card">
+      <div class="font-bold" style="color: var(--primary);">Manakish Bakery Operations</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Client &amp; Product Owner Representative</div>
+      <div class="signature-line"></div>
+      <div style="font-size: 0.8rem;">Date: May 28, 2026</div>
+    </div>
+
+    <div class="signature-card">
+      <div class="font-bold" style="color: var(--primary);">Dr. Mohamad Aoude</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Academic Director &amp; Governance Supervisor</div>
+      <div class="signature-line"></div>
+      <div style="font-size: 0.8rem;">Date: May 28, 2026</div>
+    </div>
+  </div>
+
+  <button class="print-button" onclick="window.print()">Print Report / Save PDF</button>
+
+</div>
+
+</body>
+</html>

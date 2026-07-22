@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAYROLL SUMMARY - Manakish Bakery AI Agent Platform</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --border-dark: #334155;
+      --header-bg: #1e3a8a;
+      --header-text: #ffffff;
+      --table-alt: #f1f5f9;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .document-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 40px 50px;
+    }
+
+    /* Top Running Header */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 8px;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Main Title Block */
+    .title-block {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title-block h1 {
+      font-size: 2.1rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .title-block p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0 10px 0;
+      font-size: 0.95rem;
+    }
+
+    table th {
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 14px;
+      border: 1px solid var(--primary-dark);
+    }
+
+    table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    table tr:nth-child(even) {
+      background-color: var(--table-alt);
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .font-bold { font-weight: 700; }
+
+    .total-row {
+      background-color: #e2e8f0 !important;
+      border-top: 2px solid var(--border-dark);
+      border-bottom: 2px solid var(--border-dark);
+      font-size: 1.05rem;
+    }
+
+    .footnote {
+      margin-top: 25px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Doc Footer */
+    .doc-footer {
+      border-top: 2px solid var(--text-main);
+      margin-top: 50px;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background-color: #fff;
+        padding: 0;
+      }
+      .document-container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .nav-bar { display: none; }
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.82rem;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--primary);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-bar a:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .nav-bar a.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<div class="document-container">
+
+  <!-- Document Suite Navigation -->
+  <div class="nav-bar">
+    <a href="/project_management/charter.html">1. Charter</a>
+    <a href="/project_management/plan.html">2. Management Plan</a>
+    <a href="/project_management/progress.html">3. Status Report</a>
+    <a href="/project_management/payroll.html" class="active">4. Payroll Summary</a>
+    <a href="/project_management/ev_sheet.html">5. EVM Analysis</a>
+    <a href="/project_management/closure_and_change_control.html">6. Closure &amp; Change Control</a>
+  </div>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span>SoftSolution Engineering Leadership</span>
+    <span>Consulting Engagement Letter – PR-241-01-SS</span>
+  </div>
+
+  <!-- Title Block -->
+  <div class="title-block">
+    <h1>Manakish Bakery Project – Payroll Summary (May 2026)</h1>
+    <p>Engineering Resource Compensation, Baseline vs Realized Expenditure</p>
+  </div>
+
+  <!-- Section Title for Baseline -->
+  <h2 style="font-size: 1.2rem; color: var(--primary-dark); margin-top: 20px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">1. Baseline Planned Payroll Allocation (384 Planned Hours)</h2>
+
+  <!-- Payroll Table Baseline -->
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 18%;">Name</th>
+        <th style="width: 26%;">Role</th>
+        <th style="width: 13%;" class="text-right">Hourly Cost ($)</th>
+        <th style="width: 14%;" class="text-right">Overtime Cost ($)</th>
+        <th style="width: 10%;" class="text-center">Hours/Day</th>
+        <th style="width: 14%;" class="text-right">Planned Hours</th>
+        <th style="width: 15%;" class="text-right">Planned Cost ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">Project Lead</td>
+        <td>Project Manager / Governance Lead</td>
+        <td class="text-right">20.00</td>
+        <td class="text-right">40.00</td>
+        <td class="text-center">8</td>
+        <td class="text-right">160 h</td>
+        <td class="text-right font-bold">3,200.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Mohammad Rayed</td>
+        <td>Tools & Backend Engineer</td>
+        <td class="text-right">18.00</td>
+        <td class="text-right">36.00</td>
+        <td class="text-center">8</td>
+        <td class="text-right">104 h</td>
+        <td class="text-right font-bold">1,872.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Mohammad Rayed</td>
+        <td>Agent Logic & Prompt Engineer</td>
+        <td class="text-right">18.00</td>
+        <td class="text-right">36.00</td>
+        <td class="text-center">8</td>
+        <td class="text-right">40 h</td>
+        <td class="text-right font-bold">720.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Asmaa Hajj Chehade</td>
+        <td>Platform & UI Engineer</td>
+        <td class="text-right">16.00</td>
+        <td class="text-right">32.00</td>
+        <td class="text-center">8</td>
+        <td class="text-right">48 h</td>
+        <td class="text-right font-bold">768.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Asmaa Hajj Chehade</td>
+        <td>QA / Infrastructure Specialist</td>
+        <td class="text-right">15.00</td>
+        <td class="text-right">30.00</td>
+        <td class="text-center">8</td>
+        <td class="text-right">32 h</td>
+        <td class="text-right font-bold">480.00</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="5" class="font-bold text-right" style="font-size: 1.05rem;">Total Planned Baseline Payroll Cost ($)</td>
+        <td class="text-right font-bold">384 h</td>
+        <td class="text-right font-bold" style="color: var(--primary); font-size: 1.1rem;">7,040.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section Title for Actual Realized -->
+  <h2 style="font-size: 1.2rem; color: var(--primary-dark); margin-top: 30px; border-bottom: 1px solid var(--border); padding-bottom: 4px;">2. Actual Realized Expenditure & Technical Overtime (408 Realized Hours)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 18%;">Name</th>
+        <th style="width: 26%;">Role</th>
+        <th style="width: 12%;" class="text-right">Standard Rate ($)</th>
+        <th style="width: 12%;" class="text-center">Actual Hours</th>
+        <th style="width: 14%;" class="text-center">Extra Hours</th>
+        <th style="width: 18%;">Variance Reason / Scope</th>
+        <th style="width: 15%;" class="text-right">Actual Cost ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">Project Lead</td>
+        <td>Project Manager / Governance Lead</td>
+        <td class="text-right">$20.00</td>
+        <td class="text-center">160 h</td>
+        <td class="text-center">0 h</td>
+        <td>Governance & Milestone Audits</td>
+        <td class="text-right font-bold">$3,200.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Mohammad Rayed</td>
+        <td>Tools & Backend Engineer</td>
+        <td class="text-right">$18.00</td>
+        <td class="text-center">114 h</td>
+        <td class="text-center">+10 h</td>
+        <td>Atomic store mutex locks & file race condition safety</td>
+        <td class="text-right font-bold">$2,052.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Mohammad Rayed</td>
+        <td>Agent Logic & Prompt Engineer</td>
+        <td class="text-right">$18.00</td>
+        <td class="text-center">48 h</td>
+        <td class="text-center">+8 h</td>
+        <td>Gemini Gen AI prompt tuning & tool schema constraints</td>
+        <td class="text-right font-bold">$864.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Asmaa Hajj Chehade</td>
+        <td>Platform & UI Engineer</td>
+        <td class="text-right">$16.00</td>
+        <td class="text-center">48 h</td>
+        <td class="text-center">0 h</td>
+        <td>React UI Component Hierarchy & Trace Inspector</td>
+        <td class="text-right font-bold">$768.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Asmaa Hajj Chehade</td>
+        <td>QA / Infrastructure Specialist</td>
+        <td class="text-right">$15.00</td>
+        <td class="text-center">38 h</td>
+        <td class="text-center">+6 h</td>
+        <td>Docker Alpine non-root volume write permission fix</td>
+        <td class="text-right font-bold">$570.00</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3" class="font-bold text-right" style="font-size: 1.05rem;">Total Realized Expenditure (Actual Cost - AC)</td>
+        <td class="text-center font-bold">408 h</td>
+        <td class="text-center font-bold" style="color: var(--danger);">+24 h</td>
+        <td class="font-bold" style="color: var(--danger);">Overrun: +$414.00 (+5.88%)</td>
+        <td class="text-right font-bold" style="color: #b91c1c; font-size: 1.15rem;">$7,454.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Footnote -->
+  <p class="footnote">
+    * Hourly costs include all charges, taxes, and employment-related expenses.
+  </p>
+
+  <!-- Signoff Block -->
+  <div style="display: flex; justify-content: space-between; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border-dark);">
+    <div>
+      <p class="font-bold" style="margin-bottom: 4px;">Mohammad Rayed & Asmaa Hajj Chehade</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Tools, Agent & Platform Engineering Leads</p>
+    </div>
+    <div class="text-right">
+      <p class="font-bold" style="margin-bottom: 4px;">Dr. Mohamad Aoude</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Course Director & Project Evaluator</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>Payroll Summary</span>
+    <span>ULFG Project Management Dr M AOUDE - Page 1 of 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

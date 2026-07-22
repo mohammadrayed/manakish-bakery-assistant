@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EARNED VALUE MANAGEMENT SHEET - Manakish Bakery AI Platform</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --border-dark: #334155;
+      --header-bg: #1e3a8a;
+      --header-text: #ffffff;
+      --table-alt: #f1f5f9;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .document-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 40px 50px;
+    }
+
+    /* Top Running Header */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 8px;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Main Title Block */
+    .title-block {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title-block h1 {
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+
+    .title-block h2 {
+      font-size: 1.35rem;
+      letter-spacing: 1px;
+      color: #1e293b;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .title-block p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Section Headings */
+    h2.section-title {
+      font-size: 1.3rem;
+      color: #000;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 4px;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    h3.subsection-title {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+      font-size: 0.95rem;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    /* Formula display */
+    .formula-box {
+      background-color: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 10px 16px;
+      margin: 10px 0 16px 24px;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 0.88rem;
+    }
+
+    table th {
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border: 1px solid var(--primary-dark);
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    table tr:nth-child(even) {
+      background-color: var(--table-alt);
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .font-bold { font-weight: 700; }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-essential { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+
+    /* Summary Box */
+    .summary-callout {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--accent);
+      padding: 16px 20px;
+      margin: 25px 0;
+      border-radius: 4px;
+    }
+
+    .summary-callout h4 {
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    /* Doc Footer */
+    .doc-footer {
+      border-top: 2px solid var(--text-main);
+      margin-top: 50px;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background-color: #fff;
+        padding: 0;
+      }
+      .document-container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .nav-bar { display: none; }
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.82rem;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--primary);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-bar a:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .nav-bar a.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<div class="document-container">
+
+  <!-- Document Suite Navigation -->
+  <div class="nav-bar">
+    <a href="/project_management/charter.html">1. Charter</a>
+    <a href="/project_management/plan.html">2. Management Plan</a>
+    <a href="/project_management/progress.html">3. Status Report</a>
+    <a href="/project_management/payroll.html">4. Payroll Summary</a>
+    <a href="/project_management/ev_sheet.html" class="active">5. EVM Analysis</a>
+    <a href="/project_management/closure_and_change_control.html">6. Closure &amp; Change Control</a>
+  </div>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span>SoftSolution Engineering Leadership</span>
+    <span>EV Sheet – EV-241-01-SS</span>
+  </div>
+
+  <!-- Title Block -->
+  <div class="title-block">
+    <h1>EARNED VALUE MANAGEMENT SHEET</h1>
+    <h2>Manakish Bakery AI Platform – Performance Tracking & Indicators</h2>
+    <p>Project Period: 01/05/2026 – 28/05/2026</p>
+  </div>
+
+  <!-- Section 1: EVM Introduction -->
+  <h2 class="section-title">
+    <span>1. Earned Value Management Methodology</span>
+    <span class="badge badge-essential">Framework</span>
+  </h2>
+  <p>
+    Earned Value Management (EVM) is a project management methodology used to measure project performance and progress by integrating scope, schedule, and cost parameters.
+  </p>
+
+  <h3 class="subsection-title">Core Parameters (Cumulative Values)</h3>
+  <ul>
+    <li><strong>PV – Planned Value:</strong> The authorized budget assigned to the work scheduled to be accomplished for an activity.</li>
+    <li><strong>AC – Actual Cost:</strong> The total cost actually incurred and recorded in accomplishing the work performed for an activity.</li>
+    <li><strong>EV – Earned Value:</strong> The value of work performed expressed in terms of the approved budget assigned to that work for an activity.</li>
+  </ul>
+
+  <!-- Section 2: EV Indicators & Formulas -->
+  <h2 class="section-title">
+    <span>2. Earned Value Indicators & Mathematical Formulas</span>
+    <span class="badge badge-essential">Formulas</span>
+  </h2>
+
+  <ul>
+    <li>
+      <strong>Schedule Variance (SV):</strong> A measure of schedule performance calculated by:
+      <br>
+      <div class="formula-box">SV = EV − PV</div>
+    </li>
+    <li>
+      <strong>Cost Variance (CV):</strong> A measure of cost performance calculated by:
+      <br>
+      <div class="formula-box">CV = EV − AC</div>
+    </li>
+    <li>
+      <strong>Schedule Performance Index (SPI):</strong> A measure of progress achieved compared to progress planned on a project:
+      <br>
+      <div class="formula-box">SPI = EV / PV</div>
+    </li>
+    <li>
+      <strong>Cost Performance Index (CPI):</strong> A measure of the value of work completed compared to the actual cost incurred on the project:
+      <br>
+      <div class="formula-box">CPI = EV / AC</div>
+    </li>
+  </ul>
+
+  <!-- Section 3: Calculation Table -->
+  <h2 class="section-title">
+    <span>3. Calculating Earned Value Indicators Across Project Tasks</span>
+    <span class="badge badge-success">Task Breakdown</span>
+  </h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">ID</th>
+        <th style="width: 44%;">Activity Description</th>
+        <th style="width: 16%;" class="text-right">Planned Cost ($)</th>
+        <th style="width: 14%;" class="text-center">Completed</th>
+        <th style="width: 16%;" class="text-right">Calculating (EV)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Week 1 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="5">WEEK 1 DELIVERABLES (01/05 – 07/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.1</td>
+        <td>Monitor & Control Governance Week 1</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$800.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.1</td>
+        <td>Elicit Tool Schemas & Parameter Validation Rules</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$144.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.2</td>
+        <td>Analyze Agent Prompting & Context Window Scope</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$144.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1.3</td>
+        <td>Review Zone Boundary API Requirements</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$144.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.1</td>
+        <td>Design System Architecture & Express Flow</td>
+        <td class="text-right">$144.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$144.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.2</td>
+        <td>Design Database Schema & JSON File Persistence</td>
+        <td class="text-right">$288.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$288.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2.3</td>
+        <td>Design React UI Wireframes & Telemetry Layout</td>
+        <td class="text-right">$250.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$250.00</td>
+      </tr>
+
+      <!-- Week 2 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="5">WEEK 2 DELIVERABLES (08/05 – 14/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.2</td>
+        <td>Monitor & Control Governance Week 2</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$800.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3.1</td>
+        <td>Implement Zone Distance Radius Engine (Haversine)</td>
+        <td class="text-right">$432.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$432.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3.2</td>
+        <td>Implement File Store Engine (`orders-db.json`)</td>
+        <td class="text-right">$432.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$432.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.1.1</td>
+        <td>Develop Responsive React Application Component Hierarchy</td>
+        <td class="text-right">$380.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$380.00</td>
+      </tr>
+
+      <!-- Week 3 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="5">WEEK 3 DELIVERABLES (15/05 – 21/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.3</td>
+        <td>Monitor & Control Governance Week 3</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$800.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.4.1</td>
+        <td>Construct Gemini SDK Multi-Turn Execution Loop</td>
+        <td class="text-right">$864.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$864.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.2.1</td>
+        <td>Build Live Operational Telemetry & Trace Inspector</td>
+        <td class="text-right">$310.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$310.00</td>
+      </tr>
+
+      <!-- Week 4 -->
+      <tr style="background-color: #e2e8f0; font-weight: bold;">
+        <td colspan="5">WEEK 4 DELIVERABLES (22/05 – 28/05/2026)</td>
+      </tr>
+      <tr>
+        <td class="font-bold">1.4</td>
+        <td>Monitor & Control Governance & Signoff Week 4</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$800.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.1.1</td>
+        <td>Multi-stage Non-Root Dockerization & Probes</td>
+        <td class="text-right">$150.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$150.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.2.1</td>
+        <td>End-to-End Stress Testing & Final Release</td>
+        <td class="text-right">$158.00</td>
+        <td class="text-center">100%</td>
+        <td class="text-right">$158.00</td>
+      </tr>
+
+      <!-- Earned Value Summing Up -->
+      <tr style="background-color: #cbd5e1; font-weight: bold; font-size: 0.98rem;">
+        <td colspan="4" class="text-right">Earned Value (Summing Up Cumulative)</td>
+        <td class="text-right" style="color: var(--primary); font-size: 1.05rem;">$7,040.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 4: EVM Performance Summary -->
+  <div class="summary-callout">
+    <h4>Cumulative Performance Summary & Engineering Variance</h4>
+    <p style="margin-bottom: 6px;">
+      The cumulative Earned Value (EV) upon completion of all project deliverables compared against Actual Cost (AC) incurred:
+    </p>
+    <p class="font-bold" style="font-size: 1.2rem; color: var(--primary); text-align: center; margin-bottom: 8px;">
+      EV = $7,040.00 &nbsp;|&nbsp; PV = $7,040.00 &nbsp;|&nbsp; AC = $7,454.00
+    </p>
+    <p style="margin-bottom: 0;">
+      Schedule Variance (SV) = $0.00 (SPI = 1.00) &nbsp;|&nbsp; Cost Variance (CV) = -$414.00 (CPI = 0.94).
+      <br>
+      <em>Note on Realized Variance:</em> The project achieved 100% schedule efficiency (delivered on May 28, 2026) while incurring a minor cost overrun of 5.88% (+24 engineering hours) due to atomic file-store mutex locking, Gemini prompt tool-calling boundary tuning, and Docker Alpine UID 1000 volume mount permission handling. The overrun was absorbed by contingency reserves, maintaining full profitability.
+    </p>
+  </div>
+
+  <!-- Signoff Block -->
+  <div style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-dark);">
+    <div>
+      <p class="font-bold" style="margin-bottom: 4px;">Mohammad Rayed & Asmaa Hajj Chehade</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Tools, Agent & Platform Engineering Leads</p>
+    </div>
+    <div class="text-right">
+      <p class="font-bold" style="margin-bottom: 4px;">Dr. Mohamad Aoude</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Course Director & Project Evaluator</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>EV Sheet</span>
+    <span>ULFG Project Management Dr M AOUDE - Page 1 of 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT PLAN - Manakish Bakery AI Agent Infrastructure</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --border-dark: #334155;
+      --header-bg: #1e3a8a;
+      --header-text: #ffffff;
+      --table-alt: #f1f5f9;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .document-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 40px 50px;
+    }
+
+    /* Top Running Header */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 8px;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Main Title Block */
+    .title-block {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .title-block h1 {
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 5px;
+      font-weight: 800;
+    }
+
+    .title-block h2 {
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+      color: #1e293b;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .title-block p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Section Headings */
+    h2.section-title {
+      font-size: 1.35rem;
+      color: #000;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 4px;
+      margin-top: 36px;
+      margin-bottom: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    h3.subsection-title {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+      font-size: 0.95rem;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* Callout & Note Boxes */
+    .note-box {
+      background-color: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      margin: 18px 0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .executive-callout {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--accent);
+      padding: 16px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .executive-callout h4 {
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 0.9rem;
+    }
+
+    table th {
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border: 1px solid var(--primary-dark);
+    }
+
+    table td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    table tr:nth-child(even) {
+      background-color: var(--table-alt);
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .font-bold { font-weight: 700; }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-essential { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-high { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-critical { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .badge-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+
+    /* Visual WBS Hierarchy Tree */
+    .wbs-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 25px 0;
+      overflow-x: auto;
+    }
+
+    .wbs-node {
+      background-color: #f59e0b;
+      color: #000;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 2px solid #b45309;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      min-width: 160px;
+      font-size: 0.9rem;
+    }
+
+    .wbs-node.level-1 {
+      background-color: #fbbf24;
+    }
+
+    .wbs-node.level-2 {
+      background-color: #fef08a;
+      border-color: #ca8a04;
+      font-size: 0.85rem;
+      min-width: 130px;
+    }
+
+    .wbs-node.level-3 {
+      background-color: #e0f2fe;
+      border-color: #0284c7;
+      font-weight: 600;
+      font-size: 0.8rem;
+      min-width: 120px;
+    }
+
+    .wbs-line-v {
+      width: 2px;
+      background-color: #334155;
+      height: 20px;
+    }
+
+    .wbs-row {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      position: relative;
+      gap: 10px;
+    }
+
+    .wbs-connector-horizontal {
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background-color: #334155;
+    }
+
+    /* Gantt Chart Custom Rendering */
+    .gantt-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+    }
+
+    .gantt-table {
+      font-size: 0.78rem;
+    }
+
+    .gantt-table th, .gantt-table td {
+      padding: 4px 6px;
+      text-align: center;
+    }
+
+    .gantt-task-name {
+      text-align: left !important;
+      white-space: nowrap;
+      font-weight: 600;
+      min-width: 180px;
+    }
+
+    .gantt-bar-cell {
+      padding: 0 !important;
+      height: 22px;
+      position: relative;
+    }
+
+    .gantt-bar {
+      height: 14px;
+      background-color: #2563eb;
+      border-radius: 2px;
+      position: absolute;
+      top: 4px;
+    }
+
+    .gantt-bar.pm { background-color: #475569; }
+    .gantt-bar.critical { background-color: #dc2626; }
+
+    /* Org Chart Diagram */
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .org-level {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .org-box {
+      background: #fef08a;
+      border: 2px solid #ca8a04;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 0.88rem;
+      min-width: 140px;
+    }
+
+    .org-box.sub {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      min-width: 130px;
+      font-size: 0.82rem;
+    }
+
+    /* Doc Footer */
+    .doc-footer {
+      border-top: 2px solid var(--text-main);
+      margin-top: 50px;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background-color: #fff;
+        padding: 0;
+      }
+      .document-container {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .no-print { display: none; }
+      .nav-bar { display: none; }
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.82rem;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--primary);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .nav-bar a:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .nav-bar a.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<div class="document-container">
+
+  <!-- Document Suite Navigation -->
+  <div class="nav-bar">
+    <a href="/project_management/charter.html">1. Charter</a>
+    <a href="/project_management/plan.html" class="active">2. Management Plan</a>
+    <a href="/project_management/progress.html">3. Status Report</a>
+    <a href="/project_management/payroll.html">4. Payroll Summary</a>
+    <a href="/project_management/ev_sheet.html">5. EVM Analysis</a>
+    <a href="/project_management/closure_and_change_control.html">6. Closure &amp; Change Control</a>
+  </div>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span>SoftSolution Engineering Leadership</span>
+    <span>Ref: TAP-241-00-SS / EXP-EXEC-2026</span>
+  </div>
+
+  <!-- Title Block -->
+  <div class="title-block">
+    <h1>PROJECT PLAN</h1>
+    <h2>MANAKISH BAKERY AI AGENT PLATFORM</h2>
+    <p>Development of a Domain-Specific Conversational AI & Autonomous Fulfillment Infrastructure</p>
+  </div>
+
+  <!-- Executive Summary -->
+  <h2 class="section-title">
+    <span>1. Executive Summary & System Scope</span>
+    <span class="badge badge-essential">Executive Briefing</span>
+  </h2>
+
+  <div class="executive-callout">
+    <h4>Senior Principal Lead Assessment</h4>
+    <p>
+      The Manakish Bakery AI Assistant platform is entering Phase 3 validation. This enterprise project replaces legacy static web ordering with an autonomous, natural-language conversational agent powered by Google Gemini, Node.js/Express, and React 18. The system integrates structured schema tools, dynamic delivery zone boundary calculations, multi-turn working memory state, and durable file-backed persistence mapped to containerized volumes.
+    </p>
+  </div>
+
+  <p>
+    The primary project objective is delivering an enterprise-grade agentic ordering engine capable of executing end-to-end customer workflows—menu inquiry, customized order creation, address verification with delivery radius checks, and administrative order state transitions—without human intervention while guaranteeing zero hallucinations on pricing and inventory.
+  </p>
+
+  <h3 class="subsection-title">1.1 Core Architectural Modules</h3>
+  <ul>
+    <li><strong>Conversational Intent Engine:</strong> Powered by Gemini 1.5/2.0 via Google Gen AI SDK with strict system prompt boundaries, managing short-term session context and multi-turn state.</li>
+    <li><strong>Structured Tool Invocation Layer:</strong> Native server-side schema verification (`check_delivery_zone`, `create_bakery_order`, `get_bakery_menu`, `update_order_status`).</li>
+    <li><strong>Durable JSON Persistence Store:</strong> High-reliability file storage (`/app/data/orders-db.json`) with auto-healing seed data initialization and atomic write locks.</li>
+    <li><strong>Operational Telemetry & Observability Panel:</strong> Real-time trace logging dashboard rendering turn-by-turn agent thought steps, tool inputs/outputs, and token latency breakdowns.</li>
+  </ul>
+
+  <h3 class="subsection-title">1.2 Core Scope Matrix & Delivery Modules</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 12%;">Module ID</th>
+        <th style="width: 28%;">Functional Module</th>
+        <th style="width: 45%;">Engineering Deliverables & Boundaries</th>
+        <th style="width: 15%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">MOD-01</td>
+        <td>Menu & Dynamic Pricing System</td>
+        <td>Interactive digital menu, item customization (extra cheese, spice levels), categorized queries, dynamic pricing calculators.</td>
+        <td><span class="badge badge-success">Completed</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">MOD-02</td>
+        <td>Autonomous Order Engine</td>
+        <td>Multi-item cart aggregation, customer address elicitation, zone check integration, unique ID (`BAKE-XXXX`) generation.</td>
+        <td><span class="badge badge-success">Completed</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">MOD-03</td>
+        <td>Delivery Zone Validation</td>
+        <td>Geo-distance radius validation algorithms (Zone 1: &lt;5km $2.50, Zone 2: 5-10km $5.00, Out of Zone rejection).</td>
+        <td><span class="badge badge-success">Completed</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">MOD-04</td>
+        <td>Admin Telemetry & Fulfillment</td>
+        <td>Real-time order state transition dashboard (Received, Preparing, Out for Delivery, Completed), agent execution traces.</td>
+        <td><span class="badge badge-success">Completed</span></td>
+      </tr>
+      <tr>
+        <td class="font-bold">MOD-05</td>
+        <td>Dockerized Deployment Pipeline</td>
+        <td>Multi-stage Dockerfile, non-root `node` security context, named volumes for `/app/data`, automated container health check probes.</td>
+        <td><span class="badge badge-success">Completed</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 2: WBS & Milestone Timeline -->
+  <h2 class="section-title">
+    <span>2. Work Breakdown Structure (WBS) & Activity Sequencing</span>
+    <span class="badge badge-essential">WBS Architecture</span>
+  </h2>
+
+  <p>
+    The system work breakdown structure classifies engineering tasks across four primary tracks: Management, Core Agent System, Interface & Telemetry, and Infrastructure Deployment.
+  </p>
+
+  <!-- WBS Graphical Representation -->
+  <div class="wbs-tree">
+    <div class="wbs-node">0. Manakish Bakery AI Platform</div>
+    <div class="wbs-line-v"></div>
+    <div style="position:relative; width:90%; height:20px;">
+      <div class="wbs-connector-horizontal"></div>
+    </div>
+    <div class="wbs-row">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="wbs-line-v"></div>
+        <div class="wbs-node level-1">1. Project Management</div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="wbs-line-v"></div>
+        <div class="wbs-node level-1">2. Core Agent Engine</div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="wbs-line-v"></div>
+        <div class="wbs-node level-1">3. Interface & Telemetry</div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="wbs-line-v"></div>
+        <div class="wbs-node level-1">4. Deployment & QA</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">2.1 WBS Dictionary & Activity Definition</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">WBS ID</th>
+        <th style="width: 25%;">Activity Element</th>
+        <th style="width: 45%;">Engineering Description & Scope</th>
+        <th style="width: 20%;">Predecessor(s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">1.0</td>
+        <td>Project Governance</td>
+        <td>Sprint planning, executive risk reviews, and architectural milestone control.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.1</td>
+        <td>Tool Schemas & Validation</td>
+        <td>Design JSON Schema definitions for Gemini function calling tools in `server.ts`.</td>
+        <td>1.0</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.2</td>
+        <td>Zone Calculation Algorithm</td>
+        <td>Implement spatial radius calculation logic and zone delivery pricing rules.</td>
+        <td>2.1</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.3</td>
+        <td>Persistence Store Implementation</td>
+        <td>Build read/write file backend (`orders-db.json`) with atomic sync and fallback seeding.</td>
+        <td>2.1</td>
+      </tr>
+      <tr>
+        <td class="font-bold">2.4</td>
+        <td>Agent Execution Loop</td>
+        <td>Construct multi-turn conversation handler, system prompt guidelines, and tool router.</td>
+        <td>2.2, 2.3</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.1</td>
+        <td>React Frontend Interface</td>
+        <td>Develop modern, responsive bakery interface using React 18 and Tailwind CSS.</td>
+        <td>2.4</td>
+      </tr>
+      <tr>
+        <td class="font-bold">3.2</td>
+        <td>Trace Telemetry Panel</td>
+        <td>Build real-time log inspector displaying agent thoughts, tool execution, and state.</td>
+        <td>3.1</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.1</td>
+        <td>Dockerization & Health Checks</td>
+        <td>Create multi-stage non-root Dockerfile, `compose.yaml`, and health probe endpoint.</td>
+        <td>2.4, 3.2</td>
+      </tr>
+      <tr>
+        <td class="font-bold">4.2</td>
+        <td>Integration & Stress Testing</td>
+        <td>Execute UAT scenarios, tool failure recovery, and state concurrency tests.</td>
+        <td>4.1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Schedule / Gantt Section -->
+  <h3 class="subsection-title">2.2 Execution Timeline (Gantt Schedule Baseline)</h3>
+  <p>
+    Below is the time-phased execution schedule mapped across the 4-week delivery window (May 2026 / Project Release):
+  </p>
+
+  <div class="gantt-container">
+    <table class="gantt-table">
+      <thead>
+        <tr>
+          <th class="gantt-task-name">Activity Description</th>
+          <th>W1-M</th><th>W1-W</th><th>W1-F</th>
+          <th>W2-M</th><th>W2-W</th><th>W2-F</th>
+          <th>W3-M</th><th>W3-W</th><th>W3-F</th>
+          <th>W4-M</th><th>W4-W</th><th>W4-F</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="gantt-task-name">1. Project Governance</td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar pm" style="left:0; width:100%;"></div></td>
+        </tr>
+        <tr>
+          <td class="gantt-task-name">2.1 Tool Schemas & Validation</td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td class="gantt-task-name">2.2 Zone Calculation & Persistence</td>
+          <td></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td class="gantt-task-name">2.4 Agent Execution Loop (Critical)</td>
+          <td></td><td></td><td></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+          <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td class="gantt-task-name">3.1 React Frontend & Telemetry</td>
+          <td></td><td></td><td></td><td></td><td></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td class="gantt-task-name">4.1 Dockerization & Health Probes</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar" style="left:0; width:100%;"></div></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td class="gantt-task-name">4.2 Integration Testing & Signoff</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+          <td class="gantt-bar-cell"><div class="gantt-bar critical" style="left:0; width:100%;"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 3: Technical Risk Matrix -->
+  <h2 class="section-title">
+    <span>3. Technical Risk Matrix & Pragmatic Mitigation Strategies</span>
+    <span class="badge badge-high">Risk Analysis</span>
+  </h2>
+
+  <p>
+    Deploying autonomous LLM agents into transactional production workflows introduces operational failure modes distinct from traditional software architectures. Below is the pragmatic risk register with severity scoring (Scale 1 = Low, 5 = High) and trade-off mitigations:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Identified Technical Risk</th>
+        <th style="width: 7%;" class="text-center">Prob.</th>
+        <th style="width: 7%;" class="text-center">Imp.</th>
+        <th style="width: 7%;" class="text-center">Prio.</th>
+        <th style="width: 28%;">Prevention Strategy</th>
+        <th style="width: 29%;">Engineering Contingency & Fallback</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">LLM Tool Call Hallucination / Invalid Parameter Ingestion</td>
+        <td class="text-center">3</td>
+        <td class="text-center">5</td>
+        <td class="text-center"><span class="badge badge-critical">15</span></td>
+        <td>Strict JSON Schema bounds in function definitions; server-side sanitization prior to tool invocation.</td>
+        <td>Trap schema validation errors in Express layer; re-inject structured error message into conversation turn for self-correction.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">JSON Database Concurrent File Write Race Conditions</td>
+        <td class="text-center">2</td>
+        <td class="text-center">5</td>
+        <td class="text-center"><span class="badge badge-critical">10</span></td>
+        <td>Atomic file write wrapper with memory locks (`fs.writeFileSync` temp swap pattern).</td>
+        <td>In-memory order queuing with async mutex lock before flushing state changes to container volume.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Gemini API Rate Limits / Provider Outage</td>
+        <td class="text-center">3</td>
+        <td class="text-center">3</td>
+        <td class="text-center"><span class="badge badge-high">9</span></td>
+        <td>Implement exponential backoff retry in Gen AI SDK wrapper; token budget monitoring.</td>
+        <td>Graceful degradation to structured rule-based fallback dialog prompting customer for human call assistance.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Container State Loss Across Restarts</td>
+        <td class="text-center">2</td>
+        <td class="text-center">4</td>
+        <td class="text-center"><span class="badge badge-high">8</span></td>
+        <td>Bind `/app/data` directory to explicit Docker named volume (`bakery_data`) in `compose.yaml`.</td>
+        <td>Auto-healing startup sequence that recreates default seed state if volume initialization fails.</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Session Context Window Drift / Hallucinated History</td>
+        <td class="text-center">3</td>
+        <td class="text-center">2</td>
+        <td class="text-center"><span class="badge badge-essential">6</span></td>
+        <td>Keep system instructions lean; pass current pending order state explicitly in context.</td>
+        <td>Client session reset trigger and mandatory confirmation step before order write execution.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 4: Resource Allocation & Budget -->
+  <h2 class="section-title">
+    <span>4. Resource Allocation & Time-Phased Cost Baseline</span>
+    <span class="badge badge-essential">Financial & Effort</span>
+  </h2>
+
+  <h3 class="subsection-title">4.1 Engineering Human Resources</h3>
+  <p>
+    The project team structure and responsibility split for execution:
+  </p>
+
+  <div class="org-chart">
+    <div class="org-box">Project Lead / Principal Lead<br><small>(Architecture & Governance)</small></div>
+    <div class="org-level">
+      <div class="org-box sub">Mohammad Rayed<br><small>Tools & Agent Engineer</small></div>
+      <div class="org-box sub">Asmaa Hajj Chehade<br><small>Platform & Interface Engineer</small></div>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">4.2 Effort Estimates & Labor Rates</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Engineering Role</th>
+        <th class="text-center">Allocated Hours</th>
+        <th class="text-right">Hourly Rate ($)</th>
+        <th class="text-right">Total Cost ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-bold">Principal Lead / Project Manager</td>
+        <td class="text-center">160</td>
+        <td class="text-right">$20.00</td>
+        <td class="text-right">$3,200.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Tools & Backend Engineer (Mohammad Rayed)</td>
+        <td class="text-center">104</td>
+        <td class="text-right">$18.00</td>
+        <td class="text-right">$1,872.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Agent Logic & Prompt Engineer (Mohammad Rayed)</td>
+        <td class="text-center">40</td>
+        <td class="text-right">$18.00</td>
+        <td class="text-right">$720.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Platform & UI Engineer (Asmaa Hajj Chehade)</td>
+        <td class="text-center">48</td>
+        <td class="text-right">$16.00</td>
+        <td class="text-right">$768.00</td>
+      </tr>
+      <tr>
+        <td class="font-bold">QA / Infrastructure Specialist (Asmaa Hajj Chehade)</td>
+        <td class="text-center">32</td>
+        <td class="text-right">$15.00</td>
+        <td class="text-right">$480.00</td>
+      </tr>
+      <tr style="background-color: #e2e8f0;">
+        <td class="font-bold">TOTAL PROJECT COST</td>
+        <td class="text-center font-bold">384 Hours</td>
+        <td class="text-right font-bold">—</td>
+        <td class="text-right font-bold" style="color: var(--primary); font-size: 1.05rem;">$7,040.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">4.3 Time-Phased Cost Baseline</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Role / Cost Allocation</th>
+        <th class="text-right">Week 1</th>
+        <th class="text-right">Week 2</th>
+        <th class="text-right">Week 3</th>
+        <th class="text-right">Week 4</th>
+        <th class="text-right">Cumulative ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Project Management & Architecture</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-right">$800.00</td>
+        <td class="text-right font-bold">$3,200.00</td>
+      </tr>
+      <tr>
+        <td>Tools & Agent Engineering</td>
+        <td class="text-right">$864.00</td>
+        <td class="text-right">$864.00</td>
+        <td class="text-right">$864.00</td>
+        <td class="text-right">$0.00</td>
+        <td class="text-right font-bold">$2,592.00</td>
+      </tr>
+      <tr>
+        <td>Platform, UI & Infrastructure</td>
+        <td class="text-right">$250.00</td>
+        <td class="text-right">$380.00</td>
+        <td class="text-right">$310.00</td>
+        <td class="text-right">$308.00</td>
+        <td class="text-right font-bold">$1,248.00</td>
+      </tr>
+      <tr style="background-color: #e2e8f0;">
+        <td class="font-bold">Weekly Total Baseline (PV)</td>
+        <td class="text-right font-bold">$1,914.00</td>
+        <td class="text-right font-bold">$2,044.00</td>
+        <td class="text-right font-bold">$1,974.00</td>
+        <td class="text-right font-bold">$1,108.00</td>
+        <td class="text-right font-bold" style="color: var(--primary);">$7,040.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>Financial Management & Contingency Provision:</strong> The baseline budget of $7,040.00 is backed by a 10% internal risk contingency allowance ($704.00 max risk threshold). Final project audit recorded $7,454.00 actual expenditure (+24 overtime hours / CPI 0.94) due to technical complexity around atomic file locking, Gemini tool call schema validation, and Alpine non-root container volume permissions. The minor overrun was absorbed within contingency, keeping gross profit at $21,546.00.
+  </div>
+
+  <!-- Section 5: Immediate Critical Path Items -->
+  <h2 class="section-title">
+    <span>5. Immediate Critical Path Items & Operational Directive</span>
+    <span class="badge badge-critical">Action Items</span>
+  </h2>
+
+  <div class="note-box">
+    <strong>Executive Operational Directive:</strong> The following items constitute the unblockable critical path for production deployment and course evaluation sign-off.
+  </div>
+
+  <ul>
+    <li>
+      <strong>CP-01: End-to-End Delivery Zone Verification:</strong> Finalize empirical test suite verifying `check_delivery_zone` correctly handles addresses outside the 10km limit and validates boundary conditions without triggering LLM loop failures.
+    </li>
+    <li>
+      <strong>CP-02: Non-Root Docker Volume Permission Validation:</strong> Verify that the alpine non-root `node` user (UID 1000) maintains full read/write privileges over the mounted named volume at `/app/data/orders-db.json` across container restarts.
+    </li>
+    <li>
+      <strong>CP-03: System Instruction Boundary Hardening:</strong> Enforce strict rules in `server.ts` system prompt to guarantee the agent never quotes off-menu items or accepts invalid delivery overrides without calling tools.
+    </li>
+    <li>
+      <strong>CP-04: Executive Sign-off & Demonstration Video:</strong> Conduct full recording walk-through highlighting real-time trace telemetry, order database mutation, and health check monitoring.
+    </li>
+  </ul>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>Manakish Bakery Project PLAN</span>
+    <span>ULFG Project Management Dr M AOUDE - Page 1 of 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>
