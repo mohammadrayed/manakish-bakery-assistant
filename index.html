@@ -1,13 +1,190 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manakish Bakery AI Assistant</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management Suite - Manakish Bakery AI Platform</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --header-bg: #1e3a8a;
+      --header-text: #ffffff;
+      --table-alt: #f1f5f9;
+      --success: #16a34a;
+    }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border-radius: 8px;
+      padding: 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .doc-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      background-color: #f8fafc;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .doc-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+      background-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .doc-card h3 {
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .doc-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+    }
+
+    .doc-card .badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      background-color: #dbeafe;
+      color: #1e40af;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Project Management Documentation Suite</h1>
+    <p>Manakish Bakery AI Agent System – Dr. Mohamad Aoude (ULFG)</p>
+  </div>
+
+  <p style="text-align: center; color: #475569; max-width: 700px; margin: 0 auto 25px auto;">
+    Complete set of formal project management artifacts, baseline plans, variance reports, earned value calculations, and change control sign-offs.
+  </p>
+
+  <div class="doc-grid">
+    <a href="./charter.html" class="doc-card">
+      <div>
+        <h3>1. Project Charter</h3>
+        <p>Formal project authorization, objective scope, baseline schedule, and financial contract terms.</p>
+      </div>
+      <span class="badge">Doc 1: Charter</span>
+    </a>
+
+    <a href="./plan.html" class="doc-card">
+      <div>
+        <h3>2. Management Plan</h3>
+        <p>Work Breakdown Structure (WBS), risk register, quality governance, and resource allocations.</p>
+      </div>
+      <span class="badge">Doc 2: Management Plan</span>
+    </a>
+
+    <a href="./progress.html" class="doc-card">
+      <div>
+        <h3>3. Status & Progress Report</h3>
+        <p>Execution tracking across all 4 project weeks, activity realization log, and milestone status.</p>
+      </div>
+      <span class="badge">Doc 3: Status Report</span>
+    </a>
+
+    <a href="./payroll.html" class="doc-card">
+      <div>
+        <h3>4. Payroll Summary</h3>
+        <p>Engineering resource hourly rates, baseline planned hours vs. realized overtime expenditure.</p>
+      </div>
+      <span class="badge">Doc 4: Payroll Summary</span>
+    </a>
+
+    <a href="./ev_sheet.html" class="doc-card">
+      <div>
+        <h3>5. Earned Value Analysis</h3>
+        <p>EVM metrics (PV, EV, AC, SV, CV, SPI, CPI) and performance indicators breakdown.</p>
+      </div>
+      <span class="badge">Doc 5: EVM Analysis</span>
+    </a>
+
+    <a href="./closure_and_change_control.html" class="doc-card">
+      <div>
+        <h3>6. Closure & Change Control</h3>
+        <p>Change Requests (CRs) log, engineering variance justification, deliverable matrix, and client sign-off.</p>
+      </div>
+      <span class="badge">Doc 6: Closure & Sign-Off</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>SoftSolution Engineering Leadership | Leads: Mohammad Rayed &amp; Asmaa Hajj Chehade</p>
+  </div>
+</div>
+
+</body>
+</html>
